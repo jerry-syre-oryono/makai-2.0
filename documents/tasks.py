@@ -3,12 +3,6 @@ from django.core.files.storage import default_storage
 import os
 import uuid
 from PyPDF2 import PdfReader
-# paddleocr might fail to import if installation was skipped, using a try-except for runtime safety
-try:
-    from paddleocr import PaddleOCR
-    ocr = PaddleOCR(use_angle_cls=True, lang='en')
-except ImportError:
-    ocr = None
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from ai.embeddings import get_embedding
@@ -30,11 +24,14 @@ def process_document(doc_id):
             for page in reader.pages:
                 text += page.extract_text()
         elif doc.file_type.lower() in ['png', 'jpg', 'jpeg']:
-            if ocr:
-                result = ocr.ocr(file_path, cls=True)
+            # Initialize OCR only when needed
+            try:
+                from paddleocr import PaddleOCR
+                ocr_engine = PaddleOCR(use_angle_cls=True, lang='en')
+                result = ocr_engine.ocr(file_path, cls=True)
                 for line in result[0]:
                     text += line[1][0] + " "
-            else:
+            except ImportError:
                 raise Exception("OCR engine (PaddleOCR) not available.")
         else:  # txt
             with open(file_path, 'r', encoding='utf-8') as f:

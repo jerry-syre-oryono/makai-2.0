@@ -216,6 +216,8 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API documentation for the Makai backend.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'https://unpkg.com/swagger-ui-dist@latest',
+    'SWAGGER_UI_FAVICON_HREF': 'https://unpkg.com/swagger-ui-dist@latest/favicon-32x32.png',
 }
 
 SIMPLE_JWT = {

@@ -141,7 +141,7 @@ STATIC_URL = 'static/'
 # Security
 SECRET_KEY = os.getenv('SECRET_KEY', SECRET_KEY)
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,makai-2-0.onrender.com').split(',')
 
 # Database – use Neon URL from environment
 DATABASES = {

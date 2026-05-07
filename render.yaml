@@ -24,7 +24,7 @@ services:
       - key: DEBUG
         value: false
       - key: ALLOWED_HOSTS
-        value: ".onrender.com"
+        value: "makai-2-0.onrender.com,.onrender.com"
 
   - type: worker
     name: makai-celery-worker

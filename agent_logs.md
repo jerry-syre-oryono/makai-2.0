@@ -417,3 +417,29 @@ Implemented automatic Qdrant collection initialization.
 
 **Result:**
 - Success
+
+## 2026-05-07 14:30:00
+
+**Type:** fix
+
+**Files Affected:**
+- build.sh
+- render.yaml
+
+**Description:**
+Fixed Render build failure by improving dependency installation and PYTHONPATH configuration.
+
+**Changes Made:**
+- Updated `build.sh` to use `python -m pip` for more reliable package installation.
+- Added `set -e` to `build.sh` to ensure it fails immediately on errors.
+- Added `export PYTHONPATH=$PYTHONPATH:$(pwd)/makai_backend` to both `build.sh` and the `startCommand` in `render.yaml`.
+- Configured `render.yaml` to use `./build.sh` as the `buildCommand`.
+
+**Errors Encountered (if any):**
+- `ModuleNotFoundError: No module named 'django'` on Render.
+
+**Fix Applied (if any):**
+- Switched to `python -m pip` and explicitly set `PYTHONPATH` to include the Django source directory.
+
+**Result:**
+- Success

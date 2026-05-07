@@ -2,8 +2,8 @@ services:
   - type: web
     name: makai-backend
     runtime: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "daphne -b 0.0.0.0 -p 8000 makai.asgi:application"
+    buildCommand: "./build.sh"
+    startCommand: "export PYTHONPATH=$PYTHONPATH:$(pwd)/makai_backend && daphne -b 0.0.0.0 -p 8000 makai.asgi:application"
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.12
@@ -29,8 +29,8 @@ services:
   - type: worker
     name: makai-celery-worker
     runtime: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "celery -A makai worker --loglevel=info"
+    buildCommand: "./build.sh"
+    startCommand: "export PYTHONPATH=$PYTHONPATH:$(pwd)/makai_backend && celery -A makai worker --loglevel=info"
     envVars:
       - key: DATABASE_URL
         fromDatabase:

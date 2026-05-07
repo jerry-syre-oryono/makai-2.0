@@ -443,3 +443,25 @@ Fixed Render build failure by improving dependency installation and PYTHONPATH c
 
 **Result:**
 - Success
+
+## 2026-05-07 14:45:00
+
+**Type:** fix
+
+**Files Affected:**
+- requirements.txt
+
+**Description:**
+Fixed dependency resolution failure for `paddlepaddle` on Render.
+
+**Changes Made:**
+- Updated `requirements.txt` to use flexible versioning for `paddleocr` and `paddlepaddle` (`>=` instead of `==`).
+
+**Errors Encountered (if any):**
+- `ERROR: Could not find a version that satisfies the requirement paddlepaddle==2.6.0`.
+
+**Fix Applied (if any):**
+- Changed version constraints to `>=2.7.0.3` and `>=2.6.0` respectively to allow pip to select available compatible versions (e.g., `2.6.2`).
+
+**Result:**
+- Success

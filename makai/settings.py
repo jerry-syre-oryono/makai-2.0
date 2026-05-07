@@ -139,6 +139,9 @@ STATIC_URL = 'static/'
 
 # --- Production Configuration ---
 # Security
+# Trust Render's reverse proxy so Django sees the correct Host header
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECRET_KEY = os.getenv('SECRET_KEY', SECRET_KEY)
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,makai-2-0.onrender.com').split(',')

@@ -137,14 +137,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# --- Production Configuration ---
-# Security
 # Trust Render's reverse proxy so Django sees the correct Host header
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECRET_KEY = os.getenv('SECRET_KEY', SECRET_KEY)
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,makai-2-0.onrender.com').split(',')
+
+# Always include the production host; env var can add more
+_env_hosts = os.getenv('ALLOWED_HOSTS', '')
+ALLOWED_HOSTS = ['makai-2-0.onrender.com', '.onrender.com', 'localhost', '127.0.0.1']
+if _env_hosts:
+    ALLOWED_HOSTS += [h for h in _env_hosts.split(',') if h not in ALLOWED_HOSTS]
 
 # Database – use Neon URL from environment
 DATABASES = {

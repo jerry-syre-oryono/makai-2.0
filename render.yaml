@@ -3,7 +3,7 @@ services:
     name: makai-backend
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "export PYTHONPATH=$PYTHONPATH:$(pwd)/makai_backend && daphne -b 0.0.0.0 -p 8000 makai.asgi:application"
+    startCommand: "cd makai_backend && daphne -b 0.0.0.0 -p 8000 makai.asgi:application"
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.12
@@ -30,7 +30,7 @@ services:
     name: makai-celery-worker
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "export PYTHONPATH=$PYTHONPATH:$(pwd)/makai_backend && celery -A makai worker --loglevel=info"
+    startCommand: "cd makai_backend && celery -A makai worker --loglevel=info"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
